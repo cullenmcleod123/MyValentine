@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* remove default page gap */
+html, body, #root {
+	height: 100%;
+    
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
