@@ -10,21 +10,20 @@ function App() {
     <>
     {!isloaded && <LoadingScreen onComplete={() => setIsLoaded(true)}/>}
 
-       <div class="bg-red-200 min-h-screen flex items-center justify-center">
-        <div className="textarea pb-20  bg-white rounded-lg shadow-md text-center">
+       <div className="bg-red-200 min-h-screen flex items-center justify-center p-4">
+        <div className="textarea pb-8 bg-white rounded-lg shadow-md text-center w-full max-w-md">
           <div className='bg-red-400 p-3 text-left' >
-            <h1>To Melissa</h1>
+            <h1 className='text-xl md:text-2xl'>To Melissa</h1>
           </div>
           <div className='p-5 text-center'>
-            <p>Happy Valentine's Day My love! I love you so much! will you be my valentine forever?</p>
+            <p className='text-sm md:text-base'>Happy Valentine's Day My love! I love you so much! will you be my valentine forever?</p>
 
           </div>
-          <br />
         
-        <div className="heartbox">
+        <div className="heartbox flex flex-col sm:flex-row items-center justify-center gap-3 pb-6">
          
-          <Link to="/home" className="bg-red-500 text-white hover:bg-gray-600 p-3 m-2 rounded-md"><button>yes</button></Link>
-          <Link to="/" className="bg-red-500 text-white hover:bg-gray-600 p-3 m-2 rounded-md"><button>no</button></Link>
+          <Link to="/home" className="bg-red-500 text-white hover:bg-gray-600 p-3 rounded-md w-full sm:w-auto text-center"><button>yes</button></Link>
+          <Link to="/" className="bg-red-500 text-white hover:bg-gray-600 p-3 rounded-md w-full sm:w-auto text-center"><button>no</button></Link>
           </div>
           </div>
        </div>

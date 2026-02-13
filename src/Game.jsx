@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { LoadingScreen } from './components/LoadingScreen'
 import { Link } from 'react-router-dom'
 import './index.css'
@@ -77,6 +77,23 @@ const Game = () => {
     
     return () => clearInterval(interval);
   }, [gameOver, nextDirection, food]);
+  const containerRef = useRef(null);
+  const [boardPx, setBoardPx] = useState(400);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const padding = 40; // account for margins/padding
+      const max = 400;
+      const min = 260;
+      const containerWidth = containerRef.current ? containerRef.current.clientWidth - padding : window.innerWidth - padding;
+      const size = Math.max(min, Math.min(max, containerWidth));
+      setBoardPx(size);
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
   return (
     <>
     {/* {!isloaded && <LoadingScreen onComplete={() => setIsLoaded(true)}/>} */}
@@ -93,27 +110,30 @@ const Game = () => {
             </div>
             <div className='flex flex-col items-center gap-4'>
               <div className='text-2xl font-bold'>Score: {score}</div>
-              <div className='relative bg-red-100 border-red-300' style={{ width: '400px', height: '400px' }}>
-                {[...Array(GRID_SIZE)].map((_, y) => (
-                  [...Array(GRID_SIZE)].map((_, x) => {
-                    const isSnake = snake.some(seg => seg.x === x && seg.y === y);
-                    const isFood = food.x === x && food.y === y;
-                    return (
-                      <div
-                        key={`${x}-${y}`}
-                        style={{
-                          position: 'absolute',
-                          left: `${x * 20}px`,
-                          top: `${y * 20}px`,
-                          width: '20px',
-                          height: '20px',
-                          backgroundColor: isSnake ? '#ff83a2' : isFood ? '#ff6b6b' : 'transparent',
-                          border: '0.5px solid rgba(0, 0, 0, 0.19)'
-                        }}
-                      />
-                    );
-                  })
-                ))}
+              <div ref={containerRef} className='relative bg-red-100 border-red-300' style={{ width: `${boardPx}px`, height: `${boardPx}px` }}>
+                {(() => {
+                  const cellSize = boardPx / GRID_SIZE;
+                  return ([...Array(GRID_SIZE)].map((_, y) => (
+                    [...Array(GRID_SIZE)].map((_, x) => {
+                      const isSnake = snake.some(seg => seg.x === x && seg.y === y);
+                      const isFood = food.x === x && food.y === y;
+                      return (
+                        <div
+                          key={`${x}-${y}`}
+                          style={{
+                            position: 'absolute',
+                            left: `${x * cellSize}px`,
+                            top: `${y * cellSize}px`,
+                            width: `${cellSize}px`,
+                            height: `${cellSize}px`,
+                            backgroundColor: isSnake ? '#ff83a2' : isFood ? '#ff6b6b' : 'transparent',
+                            border: '0.5px solid rgba(0, 0, 0, 0.19)'
+                          }}
+                        />
+                      );
+                    })
+                  )));
+                })()}
               </div>
               {gameOver && (
                 <div className='text-center'>

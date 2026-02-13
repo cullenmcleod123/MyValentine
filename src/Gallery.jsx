@@ -41,19 +41,19 @@ const Gallery = () => {
         <button>Welcome to MyValentine!</button>
       </Link>
 
-      <div className='flex-1 flex items-center justify-center'>
-        <div className='bg-red-100 pb-5 text-center mx-50 rounded-lg'>
-          <div className='bg-red-400 p-1  text-left' >
-            <h1>To Melissa welcome to the gallery!</h1>
+      <div className='flex-1 flex items-center justify-center w-full'>
+        <div className='bg-red-100 pb-5 text-center mx-4 md:mx-12 rounded-lg w-full max-w-4xl'>
+          <div className='bg-red-400 p-2  text-left' >
+            <h1 className='text-xl md:text-2xl'>To Melissa welcome to the gallery!</h1>
            
             </div>
-                <div className='grid grid-cols-2 md:grid-cols-3 gap-4 p-5 scrollbar-hide overflow-y-auto max-h-[630px]'>
+                <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 scrollbar-hide overflow-y-auto max-h-[520px] md:max-h-[630px]'>
                     {slides.map((slide, index) => (
                       <img 
                         key={index}
                         src={slide.src} 
                         alt="Melissa" 
-                        className='w-full h-48 object-cover border-6 border-red-300 rounded-lg cursor-pointer hover:opacity-80 hover:scale-105 transition transform'
+                        className='w-full h-36 sm:h-48 md:h-48 object-cover border-4 border-red-300 rounded-lg cursor-pointer hover:opacity-80 hover:scale-105 transition-transform duration-200'
                         onClick={() => handleImageClick(index)}
                       />
                     ))}
